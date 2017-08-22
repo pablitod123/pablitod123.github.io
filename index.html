@@ -12,14 +12,13 @@
     <script type="text/javascript">
 		  HS.beacon.config({
 		    color: '#17BEF0',
-		    topics: [
-		      { val: 'need-help', label: 'Need help with the product' },
-		      { val: 'bug', label: 'I think I found a bug'}
-		    ],
 		    icon: 'question',
-		    emailLabel: 'Enter your email address',
+		    poweredBy: false,
 		    attachment: true,
-		    instructions:'Send us a message'
+		    translation: {
+		    	emailLabel: 'Enter your email address'
+		    }
+		    instructions:'Send us a message and we\'ll get back to you shortly!'
 		  });
 	</script>
 </html>
