@@ -6,24 +6,24 @@
 </head>
 <body>
   <div id="dropin-container"></div>
-  <button id="submit-button">Request payment method</button>
+  <button id="submit-button">Submit</button>
   <script>
   var button = document.querySelector('#submit-button');
 
-
-$.ajax({
-  type: 'GET',
-  dataType : 'jsonp',
-  url: 'https://pumpkin-centipede-6684.twil.io/client_token?callback=?',
-  success: function(res) {
-    console.log(res);
-    var client_token = res.clientToken;
-  }
-})
+//
+// $.ajax({
+//   type: 'GET',
+//   dataType : 'jsonp',
+//   url: 'https://pumpkin-centipede-6684.twil.io/client_token?callback=?',
+//   success: function(res) {
+//     console.log(res);
+//     var client_token = res.clientToken;
+//   }
+// })
 
 braintree.dropin.create(
   {
-    authorization: clientToken,
+    authorization: 'sandbox_85t45z6g_3vnk2zsw8dmhkfkf',
     container: '#dropin-container'
   },
   function(createErr, instance) {
