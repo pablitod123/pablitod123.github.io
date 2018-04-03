@@ -1,31 +1,39 @@
 <html>
-    <head>
-    </head>
-    <body>
-    <h1>Beacon Help Center Testing</h1>
-    <h3>Click in the lower right corner to test</h3>
-      <script>!function(e,o,n){window.HSCW=o,window.HS=n,n.beacon=n.beacon||{};var t=n.beacon;t.userConfig={},t.readyQueue=[],t.config=function(e){this.userConfig=e},t.ready=function(e){this.readyQueue.push(e)},o.config={docs:{enabled:!0,baseUrl:"//shop-save-share.helpscoutdocs.com/"},contact:{enabled:!0,formId:"ee6c9cfd-93d3-11e7-b466-0ec85169275a"}};var r=e.getElementsByTagName("script")[0],c=e.createElement("script");c.type="text/javascript",c.async=!0,c.src="https://djtflbt20bdde.cloudfront.net/",r.parentNode.insertBefore(c,r)}(document,window.HSCW||{},window.HS||{});</script>
-  
-  <script type="text/javascript">
-      HS.beacon.config({
-        color: '#17BEF0',
-        icon: 'message',
-        showSubject: true,
-        poweredBy: false,
-        attachment: true,
-        translation: {
-          emailLabel: 'Enter your email address',
-          subjectLabel: 'Enter a message title'
-        },
-        topics: [
-            { val: 'sss', label: 'I have a question about filling out this form'},
-            { val: 'general', label: 'I have a question about Planet Fundraiser'},
-            { val: 'sss general', label: 'I have another question'}
-        ],
-        instructions:'Send us a message and we\'ll get back to you shortly!'
+<head>
+  <meta charset="utf-8">
+  <script src="https://js.braintreegateway.com/web/dropin/1.9.4/js/dropin.min.js"></script>
+  <script src="http://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
+</head>
+<body>
+  <div id="dropin-container"></div>
+  <button id="submit-button">Request payment method</button>
+  <script>
+  var button = document.querySelector('#submit-button');
+
+
+$.ajax({
+  type: 'GET',
+  dataType : 'jsonp',
+  url: 'https://pumpkin-centipede-6684.twil.io/client_token?callback=?',
+  success: function(res) {
+    console.log(res);
+    var client_token = res.clientToken;
+  }
+})
+
+braintree.dropin.create(
+  {
+    authorization: clientToken,
+    container: '#dropin-container'
+  },
+  function(createErr, instance) {
+    button.addEventListener('click', function() {
+      instance.requestPaymentMethod(function(err, payload) {
+        // Submit payload.nonce to your server
       });
-  </script>
-    </body>
-
-
+    });
+  }
+);
+</script>
+</body>
 </html>
