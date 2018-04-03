@@ -30,6 +30,21 @@ braintree.dropin.create(
     button.addEventListener('click', function() {
       instance.requestPaymentMethod(function(err, payload) {
         // Submit payload.nonce to your server
+        $.ajax({
+          type: 'POST',
+          url: 'https://pumpkin-centipede-6684.twil.io/checkout',
+          data: {'paymentMethodNonce': payload.nonce}
+        }).done(function(result) {
+          // Tear down the Drop-in UI
+          instance.teardown(function (teardownErr) {
+            if (teardownErr) {
+              console.error('Could not tear down Drop-in UI!');
+            } else {
+              console.info('Drop-in UI has been torn down!');
+              // Remove the 'Submit payment' button
+              $('#submit-button').remove();
+            }
+          });
       });
     });
   }
