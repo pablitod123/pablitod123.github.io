@@ -1,16 +1,37 @@
 <html>
+
 <head>
   <meta charset="utf-8">
   <script src="https://js.braintreegateway.com/web/dropin/1.9.4/js/dropin.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js" crossorigin="anonymous"></script>
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 </head>
+
 <body>
-  <div id="dropin-container"></div>
-  <button id="submit-button">Submit</button>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-xs-2 col-sm-4 col-md-4 col-lg-4"></div>
+      <div class="col-xs-8 col-sm-4 col-md-4 col-lg-4">
+        <div id="dropin-container"></div>
+      </div>
+      <div class="col-xs-2 col-sm-4 col-md-4 col-lg-4"></div>
+    </div>
+    <div class="row">
+      <div class="col-xs-2 col-sm-4 col-md-4 col-lg-4"></div>
+      <div class="col-xs-8 col-sm-4 col-md-4 col-lg-4">
+          <center><button class="btn btn-primary" id="submit-button">Submit</button></center>
+      </div>
+      <div class="col-xs-2 col-sm-4 col-md-4 col-lg-4"></div>
+
+    </div>
+  </div>
+
+
   <script>
-
-
-  var button = document.querySelector('#submit-button');
+  var button = document.querySelector("#submit-button");
 
 //
 // $.ajax({
@@ -25,39 +46,47 @@
 
 braintree.dropin.create(
   {
-    authorization: 'sandbox_85t45z6g_3vnk2zsw8dmhkfkf',
-    container: '#dropin-container'
+    authorization: "sandbox_85t45z6g_3vnk2zsw8dmhkfkf",
+    container: "#dropin-container"
   },
   function(createErr, instance) {
-    button.addEventListener('click', function() {
+    button.addEventListener("click", function() {
       instance.requestPaymentMethod(function(err, payload) {
         // Submit payload.nonce to your server
         $.ajax({
-          type: 'POST',
-          url: 'https://pumpkin-centipede-6684.twil.io/checkout',
-          data: {'paymentMethodNonce': payload.nonce}
+          type: "POST",
+          url: "https://pumpkin-centipede-6684.twil.io/checkout",
+          data: {
+            paymentMethodNonce: payload.nonce
+          }
         }).done(function(result) {
           // Tear down the Drop-in UI
-          instance.teardown(function (teardownErr) {
+          instance.teardown(function(teardownErr) {
             if (teardownErr) {
-              console.error('Could not tear down Drop-in UI!');
+              console.error("Could not tear down Drop-in UI!");
             } else {
-              console.info('Drop-in UI has been torn down!');
+              console.info("Drop-in UI has been torn down!");
               // Remove the 'Submit payment' button
-              $('#submit-button').remove();
+              $("#submit-button").remove();
             }
           });
 
           if (result.success) {
-            $('#checkout-message').html('<h1>Success</h1><p>Your Drop-in UI is working! Check your <a href="https://sandbox.braintreegateway.com/login">sandbox Control Panel</a> for your test transactions.</p><p>Refresh to try another transaction.</p>');
+            $("#checkout-message").html(
+              '<h1>Success</h1><p>Your Drop-in UI is working! Check your <a href="https://sandbox.braintreegateway.com/login">sandbox Control Panel</a> for your test transactions.</p><p>Refresh to try another transaction.</p>'
+            );
           } else {
             console.log(result);
-            $('#checkout-message').html('<h1>Error</h1><p>Check your console.</p>');
+            $("#checkout-message").html(
+              "<h1>Error</h1><p>Check your console.</p>"
+            );
           }
+        });
       });
     });
-  });
-});
+  }
+);
 </script>
 </body>
+
 </html>
