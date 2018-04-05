@@ -83,10 +83,8 @@ braintree.dropin.create(
           }
         }).done(function(result) {
           // Tear down the Drop-in UI
-              // Remove the 'Submit payment' button
-              $("#submit-button").remove();
-              $("#price_display").html("<h2>Thank You!</h2>");
-          });
+          $("#submit-button").remove();
+          $("#price_display").html("<h2>Thank You!</h2>");
         });
       });
     });
