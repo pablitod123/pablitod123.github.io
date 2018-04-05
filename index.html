@@ -16,7 +16,7 @@
     <div class="row">
       <div class="col-xs-0 col-sm-0 col-md-3 col-lg-4"></div>
       <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
-        <center><h2 id="price_display"></h2></center>
+        <center><div id="price_display"></div></center>
       </div>
       <div class="col-xs-0 col-sm-0 col-md-3 col-lg-4"></div>
     </div>
@@ -52,7 +52,7 @@ var url = new URL(url_string);
 var parking_price = url.searchParams.get("pr");
 console.log("Price:", parking_price);
 
-document.getElementById("price_display").innerHTML = parking_price;
+$("#parking_price").html("<h2>Your Total:" + parking_price);
 
 //
 // $.ajax({
@@ -91,18 +91,17 @@ braintree.dropin.create(
               // Remove the 'Submit payment' button
               $("#submit-button").remove();
             }
+            if (result.success) {
+              $("#checkout-message").html(
+                "<h1>Success</h1><p>Thanks for your payment!</p>"
+              );
+            } else {
+              console.log(result);
+              $("#checkout-message").html(
+                "<h1>Error</h1><p>Something went wrong</p>"
+              );
+            }
           });
-
-          if (result.success) {
-            $("#checkout-message").html(
-              '<h1>Success</h1><p>Your Drop-in UI is working! Check your <a href="https://sandbox.braintreegateway.com/login">sandbox Control Panel</a> for your test transactions.</p><p>Refresh to try another transaction.</p>'
-            );
-          } else {
-            console.log(result);
-            $("#checkout-message").html(
-              "<h1>Error</h1><p>Check your console.</p>"
-            );
-          }
         });
       });
     });
