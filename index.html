@@ -34,6 +34,11 @@
   <script>
   var button = document.querySelector("#submit-button");
 
+var url_string = window.location.href;
+var url = new URL(url_string);
+var parking_price = url.searchParams.get("pr");
+console.log("Price:", parking_price);
+
 //
 // $.ajax({
 //   type: 'GET',
@@ -58,7 +63,8 @@ braintree.dropin.create(
           type: "POST",
           url: "https://pumpkin-centipede-6684.twil.io/checkout",
           data: {
-            paymentMethodNonce: payload.nonce
+            paymentMethodNonce: payload.nonce,
+            price: parking_price
           }
         }).done(function(result) {
           // Tear down the Drop-in UI
