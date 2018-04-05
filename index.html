@@ -16,6 +16,13 @@
     <div class="row">
       <div class="col-xs-0 col-sm-0 col-md-3 col-lg-4"></div>
       <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
+        <center><h2 id="price_display"></h2></center>
+      </div>
+      <div class="col-xs-0 col-sm-0 col-md-3 col-lg-4"></div>
+    </div>
+    <div class="row">
+      <div class="col-xs-0 col-sm-0 col-md-3 col-lg-4"></div>
+      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
         <div id="dropin-container"></div>
       </div>
       <div class="col-xs-0 col-sm-0 col-md-3 col-lg-4"></div>
@@ -26,7 +33,13 @@
           <center><button class="btn btn-primary" id="submit-button">Submit</button></center>
       </div>
       <div class="col-xs-0 col-sm-4 col-md-4 col-lg-4"></div>
-
+    </div>
+    <div class="row">
+      <div class="col-xs-0 col-sm-4 col-md-4 col-lg-4"></div>
+      <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+          <center><div id="checkout-message"></div></center>
+      </div>
+      <div class="col-xs-0 col-sm-4 col-md-4 col-lg-4"></div>
     </div>
   </div>
 
@@ -38,6 +51,8 @@ var url_string = window.location.href;
 var url = new URL(url_string);
 var parking_price = url.searchParams.get("pr");
 console.log("Price:", parking_price);
+
+document.getElementById("price_display").innerHTML = parking_price;
 
 //
 // $.ajax({
