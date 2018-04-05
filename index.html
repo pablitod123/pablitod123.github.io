@@ -83,6 +83,9 @@ braintree.dropin.create(
           }
         }).done(function(result) {
           // Tear down the Drop-in UI
+              // Remove the 'Submit payment' button
+              $("#submit-button").remove();
+          });
         });
       });
     });
